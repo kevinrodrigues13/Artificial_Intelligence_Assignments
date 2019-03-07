@@ -1,0 +1,276 @@
+
+<html>
+<head>
+<title> CS440 Homework Template: HW[x] Student Name [xxx]  </title>
+<style>
+<!--
+body{
+font-family: 'Trebuchet MS', Verdana;
+}
+p{
+font-family: 'Trebuchet MS', Times;
+margin: 10px 10px 15px 20px;
+}
+h3{
+margin: 5px;
+}
+h2{
+margin: 10px;
+}
+h1{
+margin: 10px 0px 0px 20px;
+}
+div.main-body{
+align:center;
+margin: 30px;
+}
+hr{
+margin:20px 0px 20px 0px;
+}
+-->
+</style>
+</head>
+
+<body>
+<center>
+<a href="http://www.bu.edu"><img border="0" src="http://www.cs.bu.edu/fac/betke/images/bu-logo.gif"
+width="119" height="120"></a>
+</center>
+
+<h1>Assignment Title</h1>
+<p>
+ CS 640 Programming assignment 1 <br>
+ Name : Kevin Rodrigues<br>
+ Teammate's name : Dharmit Dalvi<br>
+    Date : 3/6/2019
+</p>
+
+<div class="main-body">
+<hr>
+<h2> Problem Definition </h2>
+<p>
+The problem involves designing a neural network and training it using the Backpropagation algorithm.
+We are provided with a code which implements a neural network with an input and an output layers.
+We further need to modify the code such that we get a neural network with an additional hidden layer.
+Further, we need to train the neural network built, using linear and non-linear datasets provided.
+Then, we need to evaluate the trained model using a 5-fold round robin cross-validation,
+i.e. separate the whole dataset into 5 parts, pick one of them as your test set, and the rest as your training set.
+We repeat this process 5 times, but with a different test set each time.
+We further need to apply L2 regularization to reduce the overfitting in our model. </p>
+
+<p> The result obtained can be useful to evaluate the accuracy of the neural network we built, and find the error for the entire training set using the cost values computed. </p>
+<p>
+The anticipated difficulties in this process are splitting the data into training and testing sets for the cross-validation procedure,
+ since we are not permitted to use the sklearn python library,
+ which directly provides us with a function to implement the k-fold cross-validation process, and other neural network-related functionalities.
+
+
+<hr>
+<h2> Method and Implementation </h2>
+<p> Our implementation methodology involves propogating forward and backward through the network, for every epoch.
+In forward propogation, we take a linear step forward,  We calculate this by taking our input A1 times the dot product of the random initialized weights plus a bias.
+This gives us the net value Z2, to which we apply an activation function to get input for the next layer, A3.
+we used tanh activation function for the hidden layer and softmax function for the output layer.
+After we forward propagate through our NN, we backward propagate our error gradient to update our weight parameters.
+We do this by taking the derivative of the error function, with respect to the weights (theta) of our NN, using gradient descent.
+We have chosen hyperbolic tangent function as the activation function, we compute gradients of model parameters and updategradient descent parameters.
+We have used beta as the error and alpha as the learning rate in our code.Also, one_hot_y is our desired output.</p>
+<p>
+Our code includes a NeuralNet class, which consists of functions implementing the neural network algorithm. </p>
+<p>
+The init function takes input_dim, hidden_dim, output_dim as arguments.
+Input_dim is the number of dimensions of the input data.
+Output_dim is the number of classes.
+Hidden_dim is the number of nodes in the hidden layer.
+The init function initializes the theta and bias values for the input and hidden layers. </p>
+<p>The fit function learns model parameters to fit the data.
+For every epoch, it performs forward propagation and Backpropagation.
+It further computes gradients of model parameters and updates the gradient descent parameters. </p>
+<p>The compute_cost function computes the cross entropy cost for our training set using tanh activation function.
+compute_cost_with_regularization computes the cost by using L2 regularization. </p>
+<p>The fit_regularization function works in the same fashion as fit but applies a penalty to the weights </p>
+<p>The predict function takes data array as input and makes a prediction based on the current model parameters.
+Predict_regularization does the same but with L2 regularization. </p>
+<p>The plot_decision_boundary function takes the model, input data and labels as parameters and plots the decision boundary.
+The plot_decision_boundary_regularization does the same for L2 regularized model. </p>
+
+<p>
+We further go on to train our model, on both linear and non-linear data. We first performed 5-fold cross validation, by splitting our dataset into chunks of five,
+where each one of the five chunks is the test set and remaining become the training set for every fold.
+We then go on to test the results with and without regularization.
+</p>
+
+
+<hr>
+<h2>Experiments</h2>
+
+<p> Our first experiment was adding a hidden layer to the existing network and to build a three layered neural network and observed it's results on the non-linear dataset.
+The result provided us with an accuracy value for our experiment.</p>
+<p>In the next experiment, we worked on the compute_cost function, to get cost along with the accuracy as the output.</p>
+<p>We then proceeded to split our data and create five pairs of training and testing sets for the 5-fold cross validation.
+We received five sets of results, with the plot, accuracy and cost values for each set of results. </p>
+<p> Our next experiment involved implementing L2 regularization on our model, and procuring L2 regularized results on both linear and non-linear datasets</p>
+
+
+<hr>
+<h2> Results</h2>
+<p>
+Following is the result we obtain for linear dataset:</p>
+<img src="lindatawithoutreg.jpeg" style="width:400px;height:400px;">
+
+</p>
+
+<p>
+Following is the result we obtain for non-linear dataset:</p>
+<img src="nonlinwithoutl2.jpeg" style="width:400px;height:400px;">
+
+</p>
+
+<p>
+Following is the result we obtain for non-linear dataset using L2 regularization:</p>
+<img src="nonlinwithl2.jpeg" style="width:400px;height:400px;">
+
+</p>
+
+<p>
+Following is the graph for alpha v/s accuracy values:</p>
+<img src="accuracyalpha.png" style="width:400px;height:400px;">
+
+</p>
+
+<p>
+Following is the output we obtained on the digits dataset:</p>
+<img src="digits.png" style="width:400px;height:400px;">
+
+</p>
+
+
+
+
+
+
+<hr>
+<h2> Discussion </h2>
+
+<p>
+<ul>
+Implementing a neural network with one hidden layer.
+<li>
+Neural network with one hidden layer provides better results than the Logistic regression model.
+ </li>
+ </ul>
+ </p>
+
+ <p>
+ <ul>
+The cross validation procedure enables you to combine the results of five experiments. Why is this useful?
+<li>Cross validation is a procedure used to estimate the skill of the model on new data.
+In cross validation, our training and testing datasets are different for each iteration,
+ which helps us to evaluate our model better and check whether it is overfitted or no. </li>
+</ul>
+</p>
+
+
+<p>
+<ul>
+What effect does the learning rate have on how your neural network is trained?
+Illustrate your answer by training your model using different learning rates.
+Use a script to generate output statistics and visualize them.
+<li>
+As we can observe in the graph plotted above, the accuracy increases as we increase the alpha value from 0.001 to 0.02, with increment of 0.001.
+</li>
+</ul>
+</p>
+
+
+<p>
+<ul>
+What is overfitting and why does it occur in practice? Name and briefly explain 3 ways to reduce overfitting.
+<li>Overfitting refers to a model that models the training data too well.
+Overfitting happens when a model learns the detail and noise in the training data to the extent that it negatively impacts the performance of the model on new data.
+Ways to reduce overfitting are:
+<ul><li> Cross-validation : Cross-validation uses initial training data to generate multiple mini train-test splits.
+These splits are used to tune your model. </li></ul>
+<ul><li> Regularization : Regularization drives your weights to lower values, hence reducing overfitting. </ul></li>
+<ul><li> Ensembling : Ensemblers combine predictions from multiple separate models.
+There are a few different methods for ensembling, but the two most common are bagging and boosting.
+Bagging uses complex base models and tries to "smooth out" their predictions,
+while boosting uses simple base models and tries to "boost" their aggregate complexity.</ul></li>
+</p>
+</ul>
+
+
+<p>
+<ul>
+One common technique used to reduce overfitting is L2 regularization. How does L2 regularization prevent overfitting?
+Implement L2 regularization.
+How differently does your model perform before and after implementing L2 regularization?
+<li>
+L2 regularization adds “squared magnitude” of coefficient as penalty term to the loss function.
+It drives your weights to lower values, hence reducing overfitting.
+Our model's results don't differ much after applying L2 regularization because our initial model without regularization already provides us a good overall accuracy. 
+
+</li>
+</ul>
+</p>
+
+
+<p>
+<ul>
+Performance of our AI system on the hand-written digits dataset.
+<li>
+Our AI system provides us with a 92.43 % accuracy on the hand-written digits dataset.
+ </li>
+</ul>
+</p>
+
+
+
+
+<hr>
+<h2> Conclusions </h2>
+
+<p> We can conclude that L2 regularization doesn't influence the results of our Neural Network model much,
+ and hence our model is not overfitted.
+
+</p>
+
+
+<hr>
+<h2> Credits and Bibliography </h2>
+<p>
+
+
+<p>
+Following is the link we referred to on 3/3/2019, to learn how to build a three layer neural network:
+<p>
+<a href="https://medium.freecodecamp.org/building-a-3-layer-neural-network-from-scratch-99239c4af5d3">Building a 3 layer neural network from scratch</a>
+</p>
+</p>
+
+<p>
+Following is the link we referred to on 3/4/2019, to learn about L2 regularization:
+<p>
+<a href="https://www.kaggle.com/mtax687/l2-regularization-of-neural-network-using-numpy">L2 Regularization of Neural Network using Numpy</a>
+</p>
+</p>
+
+<p>
+Following is the link we referred to on 3/5/2019, to learn about overfitting:
+<p>
+<a href="https://elitedatascience.com/overfitting-in-machine-learning#how-to-prevent">overfitting</a>
+</p>
+
+<p> Collaboration credits:</p>
+<p> We discussed how to perform L2 regularization with Suryateja Gudiguntla,
+ and discussed how to plot accuracy v/s alpha graph with Paritosh Shirodkar. </p>
+
+</p>
+
+<hr>
+</div>
+</body>
+
+
+
+</html>
